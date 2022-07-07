@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Assisting Procedural Card Art Generation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+body {font-family: "Lato", sans-serif}
+a {
+    text-decoration: none;
+    color: #0505af;
+}
+ul {
+  display: inline-block;
+  text-align: left;
+}
+.section {
+    max-width: 950px;
+    margin: 0 auto;
+}
+.section > .title {
+    font-size: 18pt;
+    font-family: "Roboto", sans-serif;
+    color: #313436;
+    padding-bottom: 0.3em;
+    margin-bottom: 0.8em;
+    clear: both;
+}
+.section > .title > span {
+    /*border-bottom: 1px solid #313436;*/
+    border-bottom: 2px solid #999;
+    padding-bottom: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.section > .row {
+    clear: both;
+}
+.section .content {
+    margin-bottom: 2em;
+    font-size: 12pt;
+}
+.section .image {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.section .image img {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.section .image figcaption {
+    display: block;
+    text-align: center;
+    padding-top: 1.5em;
+    color: #888888;
+}
+.section > .page-title{
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 0.4em;
+}
+.section h1 {
+    text-align: center;
+    font-size: 32px;
+}
+.section h2 {
+    text-align: center;
+    font-size: 20px;
+    color: #add8e6;
+}
+
+.row_paper {
+    text-align: center;
+}
+.column_paper {
+    display: inline-block;
+    margin-bottom: 32px;
+}
+.column_paper > a {
+    display: block;
+}
+.column_paper > span:after {
+    content: "-";
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.column_paper > span:last-child:after {
+    content: "";
+}
+.affiliations {
+    font-size: 15px;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.authors { text-align: center; }
+.authors a {
+    display: inline-block;
+    font-size: 20px;
+    padding: 15px;
+}
+.authors sup {
+    color: #313436;
+    font-size: 60%;
+}
+.conference {
+    text-align:center;
+    font-weight: bold;
+}
+h1.project-title {
+    font-weight: normal;
+    line-height: 120%;
+    padding-top: 50px;
+}
+
+.project-conference {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.project-icons {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.project-icons a {
+    display: inline-block;
+    font-weight: bold;
+    padding: 0px 20px 0px 20px;
+}
+.project-icons i { font-size: 30px; }
+.w3-text-white {
+    text-shadow: 1px 1px 10px black;
+}
+.side-text {
+    width:60%;
+    display:inline-block;
+    vertical-align:top;
+}
+.side-image {
+    width: 38%;
+    display: inline-block;
+    vertical-align: top;
+}
+.controls {
+    margin-bottom: 10px;
+}
+.left-controls {
+    display: inline-block;
+    vertical-align: top;
+    width: 80%;
+}
+.right-controls {
+    display: inline-block;
+    vertical-align: top;
+    width: 19%;
+    text-align: right;
+}
+.render_window {
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 1px 0px 5px black;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: calc(33% - 10px);
+}
+.progress {
+    background: #666;
+    position: relative;
+    height: 5px;
+    margin-bottom: -5px;
+    display: none;
+}
+.glide__slide:hover {cursor: grab;}
+.glide__slide:active {cursor: grabbing;}
+.glide__slide img {width: 90%;}
+.glide__bullets {
+    text-align: center;
+}
+.glide__bullet--active {
+    color: #aaa; 
+}
+
+@media (max-width: 400px) {
+    .render_window {
+        display: block;
+        width: 90%;
+        margin: 10px auto;
+    }
+}
+@media (max-width: 700px) {
+    .side-image {
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+    }
+    .side-text {
+        display: block;
+        width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:0px">
+
+  <!-- Automatic Slideshow Images -->
+  <div class="mySlides w3-display-container w3-center">
+    <img src="./img/banner.png" style="width:100%">
+    <div class="w3-display-middle w3-container w3-text-white w3-padding-32 w3-hide-small">
+      <h1>Assisting Procedural Card Art Generation</h3>
+      <p><b>Supplimentary Material</b></p>   
+    </div>
+  </div>
+
+  <div class="section">
+    <h1 class="project-title">
+        Assisting Procedural Card Art Generation: Experiments and Tool
+    </h1>
+    <div class="authors">
+        <a href=https://twitter.com/sami_ede/>
+            Sami Ede <sup>1</sup>
+        </a>
+        <a href=https://twitter.com/zookae/>
+            Alexander Zook <sup>2</sup>
+        </a>
+    </div>
+
+    <div class="affiliations">
+        <span><sup>1</sup> Technical University of Berlin</span>
+        <span><sup>2</sup> Independent</span> <br/>
+    </div>
+
+    <div class="project-conference">
+        AIIDE2022
+    </div>
+
+    <div class="project-icons">
+        <a href="Arxiv link">
+            <i class="fa fa-file"></i> <br/>
+            Paper
+        </a>
+        <a href="https://colab.research.google.com/drive/1ljH6_BhwuvwUuVQdWXyPyKGe5K0Jfp1Q?usp=sharing">
+            <i class="fa fa-code"></i> <br/>
+            Code
+        </a>
+    </div>
+
+
+  <!--Abstract-->
+  <div class="w3-container w3-content w3-center" style="max-width:800px" id="abstract">
+    <h2 class="w3-wide">ABSTRACT</h2>
+    <p class="w3-justify">We present a tool that supports authoring game content using CLIP-guided diffusion models, specifically targeted toward collectible card games.
+        CLIP-guided diffusion models have emerged as powerful and versatile tools for generating visual art using natural language descriptions.
+        However, CLIP-guided models are sensitive to a wide array of choices in parameters and structure of the text prompts, making them ill-suited to rapid experimentation by developers creating 2D game art (let alone automating art generation).
+        We discuss our learnings from experimenting with these models and present a tool that guides prompt and model choices to lower the barrier to experimenting with language-guided generation.</p>
+  </div>
+
+    <!-- Parameters -->
+    <div class="w3-container w3-content w3-center" style="max-width:800px" id="params">
+        <h2 class="w3-wide">PARAMETERS</h2>
+        <p class="w3-justify">
+
+            Our notebook exposes key parameters that strongly influence image generation. <br>
+            <b>Model settings</b> allows a choice among CLIP models trained by OpenAI (available on their <a href="https://github.com/openai/CLIP">GitHub</a>) to guide the underlying diffusion model in the generation process.
+            Depending on available hardware, these models can be arbitrarily combined and all have advantages and disadvantages depending on the desired outcome.
+            The notebook offers three presets of model combinations and manual selection options.
+            These choices help balance tradeoffs among visual qualities and generation requirements.
+            For example, <b>ViT336</b> offers strong image coherence but produces the less vibrant colors and demands the most VRAM. <br><br>
+            
+            <b>Batch settings</b> specify where to save the final images and whether to save intermediate steps. They include the option to use a specific seed if the user wants to repeat an image with different settings. <br> <br>
+
+            <b>Image settings</b> influence the generated image appearance:
+            <ul>
+                <li><b>Clip Guidance Scale:</b> Controls how much the diffusion process is influenced by the CLIP model. Higher values often give better results, but values too high cause the model to "overshoot", resulting in distortions or over/underexposed images. This scales with the image resolution: larger images require a larger clip guidance scale.</li>
+                <li><b>TV scale</b> smooths the final image.</li>
+                <li><b>Range Scale</b> controls color contrast with lower values resulting in an increased contrast.</li>
+                <li><b>Saturation Scale</b> mitigates oversaturation with higher values reducing the saturation.</li>
+                <li><b>Symmetry loss:</b> Guides generation toward symmetrical image. Two addition settings, <b>symmetry loss scale</b> and <b>symmetry switch</b>, scale the strength of the symmetry loss and the number of steps until the symmetry loss stops taking effect.  We recommend a value of 20-30% of total steps</li>
+                <li><b>Cut IC pow: </b> Controls the distance to the border of the image when doing inner cuts. A larger number results in smaller inner cuts, which increases the granularity of details. Larger values can hurt image coherence or introduce mosaic effects.</li>
+                <li><b>Clamp gradient</b> and <b>clamp max</b>: These parameters control the gradient used by the diffusion model. With a high Clip Guidance Scale, clamping the gradient can prevent extreme results like oversaturated or overexposed images or areas with blotches of pure white/black.</li>
+              </ul>
+            
+            <b>Generation process settings</b> strongly influence VRAM needs and/or runtime, with modest effects on images: <br>
+            <ul>
+                <li><b>Width, Height: </b>strongly influences VRAM and runtime. The aspect ratio also has an influence on the generated images, e.g. using a portrait image format can be beneficial when trying to generate a "high tower".</li>
+                <li><b>Cut Scheduling: </b> At every diffusion step, the CLIP models evaluate the image on a number of snapshots of the image. There are two types of snapshots: <b>overview cuts</b> look at the whole image at once and apply some transformations on it and improve the overall coherence of the image.
+                    <b>Inner cuts</b> take a random smaller crops of the image, also apply some transformations on them and use those to guide the image generation. These help generate fine details. The notebook offers three presets for the cut schedule based on a percentage of the total number of cuts. Increasing the number of cuts increases both VRAM use and runtime.</li>
+                <li><b>Cut Batches:</b> Run cuts in batches to save memory. The total number of cuts is calculated by <i>scheduled_cuts</i> * <i>cut_batches</i>, but a larger number of batches does not visually compensate for a low number of scheduled cuts. Has a slight effect on VRAM, more batches increase runtime.</li>        
+                <li><b>Steps: </b>The number of DiscoDiffusion steps. More steps increase image detail at the cost of runtime.</li>
+            </ul>
+
+        </p>
+        <div class="w3-row w3-padding-32">
+          <div class="w3-third">
+            <p>Name</p>
+            <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+          </div>
+          <div class="w3-third">
+            <p>Name</p>
+            <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+          </div>
+          <div class="w3-third">
+            <p>Name</p>
+            <img src="/w3images/bandmember.jpg" class="w3-round" alt="Random Name" style="width:60%">
+          </div>
+        </div>
+      </div>
+
+
+<!-- End Page Content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+  <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+<script>
+// Automatic Slideshow - change image every 4 seconds
+var myIndex = 0;
+// carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 4000);    
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+// When the user clicks anywhere outside of the modal, close it
+var modal = document.getElementById('ticketModal');
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+</body>
+</html>
+
