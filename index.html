@@ -211,13 +211,13 @@ h1.project-title {
 
 
 <!-- Page content -->
-<div class="w3-content" style="max-width:2000px;margin-top:0px">
+<div class="w3-content" style="max-width:2000px;margin-top:0">
 
   <!-- Automatic Slideshow Images -->
   <div class="mySlides w3-display-container w3-center">
-    <img src="./img/banner.png" style="width:100%">
+    <img src="./img/banner.png" style="width:100%" alt="The Banner of the website showing generated art of a sorcerer and a robot">
     <div class="w3-display-middle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h1>Assisting Procedural Card Art Generation</h3>
+      <h1>Assisting Procedural Card Art Generation</h1>
       <p><b>Supplimentary Material</b></p>   
     </div>
   </div>
@@ -245,10 +245,10 @@ h1.project-title {
     </div>
 
     <div class="project-icons">
-        <a href="Arxiv link">
-            <i class="fa fa-file"></i> <br/>
-            Paper
-        </a>
+<!--        <a href="Arxiv link">-->
+<!--            <i class="fa fa-file"></i> <br/>-->
+<!--            Paper-->
+<!--        </a>-->
         <a href="https://colab.research.google.com/drive/1ljH6_BhwuvwUuVQdWXyPyKGe5K0Jfp1Q?usp=sharing">
             <i class="fa fa-code"></i> <br/>
             Code
@@ -262,24 +262,25 @@ h1.project-title {
     <p class="w3-justify">We present a tool that supports authoring game content using CLIP-guided diffusion models, specifically targeted toward collectible card games.
         CLIP-guided diffusion models have emerged as powerful and versatile tools for generating visual art using natural language descriptions.
         However, CLIP-guided models are sensitive to a wide array of choices in parameters and structure of the text prompts, making them ill-suited to rapid experimentation by developers creating 2D game art (let alone automating art generation).
-        We discuss our learnings from experimenting with these models and present a tool that guides prompt and model choices to lower the barrier to experimenting with language-guided generation.</p>
+        We discuss our learnings from experimenting with these models and present a tool that guides prompt and model choices to lower the barrier to experimenting with language-guided generation.
+    </p>
   </div>
 
     <!-- Parameters -->
-<div class="w3-container w3-content w3-center" style="max-width:1000px" id="params">
-    <h2 class="w3-wide">PARAMETERS</h2>
-    <p class="w3-justify">
-
-        Our notebook exposes key parameters that strongly influence image generation. <br>
-        <b>Model settings</b> allows a choice among CLIP models trained by OpenAI (available on their <a href="https://github.com/openai/CLIP">GitHub</a>) to guide the underlying diffusion model in the generation process.
-        Depending on available hardware, these models can be arbitrarily combined and all have advantages and disadvantages depending on the desired outcome.
-        The notebook offers three presets of model combinations and manual selection options.
-        These choices help balance tradeoffs among visual qualities and generation requirements.
-        For example, <b>ViT336</b> offers strong image coherence but produces the less vibrant colors and demands the most VRAM. <br><br>
-        
-        <b>Batch settings</b> specify where to save the final images and whether to save intermediate steps. They include the option to use a specific seed if the user wants to repeat an image with different settings. <br> <br>
-
-        <b>Image settings</b> influence the generated image appearance:
+    <div class="w3-container w3-content w3-center" style="max-width:1000px" id="params">
+        <h2 class="w3-wide">PARAMETERS</h2>
+        <p class="w3-justify">
+            Our notebook exposes key parameters that strongly influence image generation. <br>
+            <b>Model settings</b> allows a choice among CLIP models trained by OpenAI (available on their <a href="https://github.com/openai/CLIP">GitHub</a>) to guide the underlying diffusion model in the generation process.
+            Depending on available hardware, these models can be arbitrarily combined and all have advantages and disadvantages depending on the desired outcome.
+            The notebook offers three presets of model combinations and manual selection options.
+            These choices help balance tradeoffs among visual qualities and generation requirements.
+            For example, <b>ViT336</b> offers strong image coherence but produces the less vibrant colors and demands the most VRAM. <br><br>
+            
+            <b>Batch settings</b> specify where to save the final images and whether to save intermediate steps. They include the option to use a specific seed if the user wants to repeat an image with different settings. <br> <br>
+    
+            <b>Image settings</b> influence the generated image appearance:
+        </p>
         <ul>
             <li><b>Clip Guidance Scale:</b> Controls how much the diffusion process is influenced by the CLIP model. Higher values often give better results, but values too high cause the model to "overshoot", resulting in distortions or over/underexposed images. This scales with the image resolution: larger images require a larger clip guidance scale.</li>
             <li><b>TV scale</b> smooths image by applying total variation loss as in <a href="https://arxiv.org/abs/1412.0035">Mahendran et al.</a></li>
@@ -288,9 +289,10 @@ h1.project-title {
             <li><b>Symmetry loss:</b> Guides generation toward symmetrical image. Two addition settings, <b>symmetry loss scale</b> and <b>symmetry switch</b>, scale the strength of the symmetry loss and the number of steps until the symmetry loss stops taking effect.  We recommend a value of 20-30% of total steps</li>
             <li><b>Cut ic pow: </b> The variation in inner cut size between a minimum size defined by the CLIP model size and a maximum cut size defined as the smaller of the image's x or y dimensions. Larger values result in a higher probability for a small cut</li>
             <li><b>Clamp gradient</b> and <b>clamp max</b>: These parameters control the gradient used by the diffusion model. With a high Clip Guidance Scale, clamping the gradient can prevent extreme results like oversaturated or overexposed images or areas with blotches of pure white/black.</li>
-            </ul>
-        
-        <b>Generation process settings</b> strongly influence VRAM needs and/or runtime, with modest effects on images: <br>
+        </ul>
+        <p class="w3-justify">
+            <b>Generation process settings</b> strongly influence VRAM needs and/or runtime, with modest effects on images: <br>
+        </p>
         <ul>
             <li><b>Width, Height: </b>strongly influences VRAM and runtime. The aspect ratio also has an influence on the generated images, e.g. using a portrait image format can be beneficial when trying to generate a "high tower".</li>
             <li><b>Cut Scheduling: </b> At every diffusion step, the CLIP models evaluate the image on a number of snapshots of the image. There are two types of snapshots: <b>overview cuts</b> look at the whole image at once and apply some transformations on it and improve the overall coherence of the image.
@@ -298,121 +300,100 @@ h1.project-title {
             <li><b>Cut Batches:</b> Run cuts in batches to save memory. The total number of cuts is calculated by <i>scheduled_cuts</i> * <i>cut_batches</i>, but a larger number of batches does not visually compensate for a low number of scheduled cuts. Has a slight effect on VRAM, more batches increase runtime.</li>        
             <li><b>Steps: </b>The number of DiscoDiffusion steps. More steps increase image detail at the cost of runtime.</li>
         </ul>
-    </p>
     </div>
     <div class="w3-container w3-content w3-center" style="max-width:1000px" id="example_images">
         <h2 class="w3-wide">EXAMPLE IMAGES</h2>
         <p class="w3-justify">
             Here, we show some example images that were generated with our tool and their respective prompts.
+        </p>
+        <div class="w3-row w3-padding-32">
+            <div class="w3-third">
+                <p>The Jester</p>
+                <img src="img/ex1.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                <p>A painting of a robot warrior with glowing eyes, holding two large shields by Jake Parker, Kemp Millard, Calum Alexander Watt and Peter Mohrbacher, featured on artstation, cyberpunk</p>
+            </div>
+            <div class="w3-third">
+                <p>The Bannerman</p>
+                <img src="img/ex2.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                <p>A beautiful painting of a mechanical warrior with glowing eyes and a giant sword, trending on artstation, by Jakub Rozalski and James Gunny</p>
+            </div>
+            <div class="w3-third">
+                <p>Electrocute!</p>
+                <img src="img/ex3.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                <p>A beautiful painting of a humanoid robot being shocked by multiple arcs of electricity, by Greg Rutkowski, Jake Parker, Kemp Millard, Calum Alexander Watt and Peter Mohrbacher, trending on artstation, concept art, matte painting, character design, cyberpunk</p>
+            </div>
+            <div class="w3-third">
+                <p>The Jellyfish</p>
+                <img src="img/ex4.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                <p>A swarm of floating mechanical jellyfish with glowing bodies, artstation, by Greg Rutkowski and by Chesley Bonestell, concept art</p>
+            </div>
+            <div class="w3-third">
+                <p>The Bannerman</p>
+                <img src="img/ex5.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                <p>A beautiful painting of dominating robot Goliath, by Jordan Grimmer, James Gourney, Kemp Millard, Peter Mohrbacher and Jason Felix, trending on conceptartworld, matte painting, concept art, horror dreamscape, dark and broody</p>
+            </div>
+            <div class="w3-third">
+                <p>The Putrid Streamer</p>
+                <img src="img/ex6.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                <p>"A beautiful painting of a ominous robot priest wearing a futuristic gas mask casting a spell by Thomas Kinkade, Jason Felix, Peter Mohrbacher and Viktoria Gavrilenko, trending on artstation, Ligne Claire, dramatic:10", <br>
+                    "cyberpunk:2", <br>
+                    "concept art: 2", <br>
+                    "matte painting:2", <br>
+                    "volumetric light:2"</p>
+            </div>
             <div class="w3-row w3-padding-32">
                 <div class="w3-third">
-                    <p>The Jester</p>
-                    <img src="img/ex1.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                    <p>A painting of a robot warrior with glowing eyes, holding two large shields by Jake Parker, Kemp Millard, Calum Alexander Watt and Peter Mohrbacher, featured on artstation, cyberpunk</p>
+                    <p>Flower Power</p>
+                    <img src="img/watercolor1.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A hyper-detailed watercolor painting of a humanoid war robot, featured on artstation, lovely rendition</p>
                 </div>
                 <div class="w3-third">
-                    <p>The Bannerman</p>
-                    <img src="img/ex2.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                    <p>A beautiful painting of a mechanical warrior with glowing eyes and a giant sword, trending on artstation, by Jakub Rozalski and James Gunny</p>
+                    <p>Flower Power</p>
+                    <img src="img/watercolor2.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A hyper-detailed watercolor painting of a humanoid war robot, featured on artstation, lovely rendition</p>
                 </div>
                 <div class="w3-third">
-                    <p>Electrocute!</p>
-                    <img src="img/ex3.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                    <p>A beautiful painting of a humanoid robot being shocked by multiple arcs of electricity, by Greg Rutkowski, Jake Parker, Kemp Millard, Calum Alexander Watt and Peter Mohrbacher, trending on artstation, concept art, matte painting, character design, cyberpunk</p>
+                    <p>Flower Power</p>
+                    <img src="img/watercolor3.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A hyper-detailed watercolor painting of a humanoid war robot, featured on artstation, lovely rendition</p>
                 </div>
             </div>
             <div class="w3-row w3-padding-32">
                 <div class="w3-third">
-                    <p>The Jellyfish</p>
-                    <img src="img/ex4.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                    <p>A swarm of floating mechanical jellyfish with glowing bodies, artstation, by Greg Rutkowski and by Chesley Bonestell, concept art</p>
+                    <p>Tribal Robots</p>
+                    <img src="img/tribal1.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A beautiful and detailed painting of a robot tribal warrior with glowing eyes, by Jordan Grimmer, Zdzislaw Bekinski, Viktoria Gavrilenko, James Gourney, trending on conceptartworld, matte painting, concept art, horror dreamscape, gritty</p>
                 </div>
                 <div class="w3-third">
-                    <p>The Bannerman</p>
-                    <img src="img/ex5.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                    <p>A beautiful painting of dominating robot Goliath, by Jordan Grimmer, James Gourney, Kemp Millard, Peter Mohrbacher and Jason Felix, trending on conceptartworld, matte painting, concept art, horror dreamscape, dark and broody</p>
+                    <p>Tribal Robots</p>
+                    <img src="img/tribal2.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A beautiful and detailed painting of a robot tribal warrior with glowing eyes, by Jordan Grimmer, Zdzislaw Bekinski, Viktoria Gavrilenko, James Gourney, trending on conceptartworld, matte painting, concept art, horror dreamscape, gritty</p>
                 </div>
                 <div class="w3-third">
-                    <p>The Putrid Streamer</p>
-                    <img src="img/ex6.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                    <p>"A beautiful painting of a ominous robot priest wearing a futuristic gas mask casting a spell by Thomas Kinkade, Jason Felix, Peter Mohrbacher and Viktoria Gavrilenko, trending on artstation, Ligne Claire, dramatic:10", <br>
-                        "cyberpunk:2", <br>
-                        "concept art: 2", <br>
-                        "matte painting:2", <br>
-                        "volumetric light:2"</p>
+                    <p>Tribal Robots</p>
+                    <img src="img/tribal3.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A beautiful and detailed painting of a robot tribal warrior with glowing eyes, by Jordan Grimmer, Zdzislaw Bekinski, Viktoria Gavrilenko, James Gourney, trending on conceptartworld, matte painting, concept art, horror dreamscape, gritty</p>
                 </div>
-                <div class="w3-row w3-padding-32">
-                    <div class="w3-third">
-                        <p>Flower Power</p>
-                        <img src="img/watercolor1.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A hyper-detailed watercolor painting of a humanoid war robot, featured on artstation, lovely rendition</p>
-                    </div>
-                    <div class="w3-third">
-                        <p>Flower Power</p>
-                        <img src="img/watercolor2.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A hyper-detailed watercolor painting of a humanoid war robot, featured on artstation, lovely rendition</p>
-                    </div>
-                    <div class="w3-third">
-                        <p>Flower Power</p>
-                        <img src="img/watercolor3.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A hyper-detailed watercolor painting of a humanoid war robot, featured on artstation, lovely rendition</p>
-                    </div>
+            </div>
+            <div class="w3-row w3-padding-32">
+                <div class="w3-third">
+                    <p>Slavic Folktale</p>
+                    <img src="img/slavic1.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A painting of a slavic folk tale humanoid war robot, by Ivan Bilibin, featured on artstation, HD</p>
                 </div>
-                <div class="w3-row w3-padding-32">
-                    <div class="w3-third">
-                        <p>Tribal Robots</p>
-                        <img src="img/tribal1.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A beautiful and detailed painting of a robot tribal warrior with glowing eyes, by Jordan Grimmer, Zdzislaw Bekinski, Viktoria Gavrilenko, James Gourney, trending on conceptartworld, matte painting, concept art, horror dreamscape, gritty</p>
-                    </div>
-                    <div class="w3-third">
-                        <p>Tribal Robots</p>
-                        <img src="img/tribal2.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A beautiful and detailed painting of a robot tribal warrior with glowing eyes, by Jordan Grimmer, Zdzislaw Bekinski, Viktoria Gavrilenko, James Gourney, trending on conceptartworld, matte painting, concept art, horror dreamscape, gritty</p>
-                    </div>
-                    <div class="w3-third">
-                        <p>Tribal Robots</p>
-                        <img src="img/tribal3.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A beautiful and detailed painting of a robot tribal warrior with glowing eyes, by Jordan Grimmer, Zdzislaw Bekinski, Viktoria Gavrilenko, James Gourney, trending on conceptartworld, matte painting, concept art, horror dreamscape, gritty</p>
-                    </div>
+                <div class="w3-third">
+                    <p>Tribal Robots</p>
+                    <img src="img/slavic2.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A painting of a slavic folk tale humanoid war robot, by Ivan Bilibin, featured on artstation, HD</p>
                 </div>
-                <div class="w3-row w3-padding-32">
-                    <div class="w3-third">
-                        <p>Slavic Folktale</p>
-                        <img src="img/slavic1.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A painting of a slavic folk tale humanoid war robot, by Ivan Bilibin, featured on artstation, HD</p>
-                    </div>
-                    <div class="w3-third">
-                        <p>Tribal Robots</p>
-                        <img src="img/slavic2.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A painting of a slavic folk tale humanoid war robot, by Ivan Bilibin, featured on artstation, HD</p>
-                    </div>
-                    <div class="w3-third">
-                        <p>Tribal Robots</p>
-                        <img src="img/slavic3.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
-                        <p>A painting of a slavic folk tale humanoid war robot, by Ivan Bilibin, featured on artstation, HD</p>
-                    </div>
+                <div class="w3-third">
+                    <p>Tribal Robots</p>
+                    <img src="img/slavic3.png" class="w3-round w3-margin-bottom" alt="A painting of a robot jester" style="width:95%">
+                    <p>A painting of a slavic folk tale humanoid war robot, by Ivan Bilibin, featured on artstation, HD</p>
                 </div>
-        </p>
-      </div>
-        <!--<div class="w3-row w3-padding-32">
-          <div class="w3-third">
-            <p>Name</p>
-            <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-          </div>
-          <div class="w3-third">
-            <p>Name</p>
-            <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-          </div>
-          <div class="w3-third">
-            <p>Name</p>
-            <img src="/w3images/bandmember.jpg" class="w3-round" alt="Random Name" style="width:60%">
-          </div>
+            </div>
         </div>
-      </div>
-    -->
-
-
-<!-- End Page Content -->
+  </div>
 </div>
 
 <!-- Footer -->
